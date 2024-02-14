@@ -1,4 +1,4 @@
-package com.jsp.medishop.service.impli;
+package com.jsp.medishop.service.impl;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import com.jsp.medishop.verification.DataVerification;
  * @author Atul
  */
 @Service
-public class CustomerServiceImpli implements CustomerService {
+public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerDao dao;
@@ -28,7 +28,7 @@ public class CustomerServiceImpli implements CustomerService {
 	private ResponseStructure<List<Customer>> structure2;
 
 	@Override
-	public ResponseStructure<Customer> saveCustomerDao(Customer customer) {
+	public ResponseStructure<Customer> saveCustomerService(Customer customer) {
 		String email = verification.verifyEmail(customer.getEmail());
 		String password = verification.verifyPassword(customer.getPassword());
 		if (email != null) {
@@ -51,31 +51,31 @@ public class CustomerServiceImpli implements CustomerService {
 	}
 
 	@Override
-	public ResponseStructure<Customer> getCustomerByIdDao(int id) {
+	public ResponseStructure<Customer> getCustomerByIdService(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseStructure<Customer> getCustomerByEmailDao(String email) {
+	public ResponseStructure<Customer> getCustomerByEmailService(String email) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Customer> getCustomersDao() {
+	public List<Customer> getCustomersService() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseStructure<List<Customer>> updateCustomerByEmailDao(Customer customer) {
+	public ResponseStructure<List<Customer>> updateCustomerByEmailService(Customer customer) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseStructure<Customer> deleteCustomerByEmailDao(String email) {
+	public ResponseStructure<Customer> deleteCustomerByEmailService(String email) {
 		return null;
 	}
 

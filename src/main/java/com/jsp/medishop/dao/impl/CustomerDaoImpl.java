@@ -1,4 +1,4 @@
-package com.jsp.medishop.dao.impli;
+package com.jsp.medishop.dao.impl;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import com.jsp.medishop.repository.CustomerRepository;
  * @author Atul
  */
 @Repository
-public class CustomerDaoImplementation implements CustomerDao {
+public class CustomerDaoImpl implements CustomerDao {
 
 	@Autowired
 	private CustomerRepository customerRepository;

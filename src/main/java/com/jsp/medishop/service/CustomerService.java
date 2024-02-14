@@ -11,15 +11,15 @@ import com.jsp.medishop.response.ResponseStructure;
 
 public interface CustomerService {
 
-	public ResponseStructure<Customer> saveCustomerDao(Customer customer);
+	public ResponseStructure<Customer> saveCustomerService(Customer customer);
 
-	public ResponseStructure<Customer> getCustomerByIdDao(int id);
+	public ResponseStructure<Customer> getCustomerByIdService(int id);
 
-	public ResponseStructure<Customer> getCustomerByEmailDao(String email);
+	public ResponseStructure<Customer> getCustomerByEmailService(String email);
 
-	public List<Customer> getCustomersDao();
+	public List<Customer> getCustomersService();
 
-	public ResponseStructure<List<Customer>> updateCustomerByEmailDao(Customer customer);
+	public ResponseStructure<List<Customer>> updateCustomerByEmailService(Customer customer);
 
-	public ResponseStructure<Customer> deleteCustomerByEmailDao(String email);
+	public ResponseStructure<Customer> deleteCustomerByEmailService(String email);
 }

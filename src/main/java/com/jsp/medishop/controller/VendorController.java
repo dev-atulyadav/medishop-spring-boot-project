@@ -6,23 +6,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jsp.medishop.dto.Customer;
+import com.jsp.medishop.dto.Vendor;
 import com.jsp.medishop.response.ResponseStructure;
-import com.jsp.medishop.service.CustomerService;
+import com.jsp.medishop.service.VendorService;
 
 /**
  * @author Atul
  */
 @RestController
-@RequestMapping("/customer")
-public class CustomerController {
+@RequestMapping(value = "/vendor")
+public class VendorController {
 
 	@Autowired
-	private CustomerService service;
+	private VendorService service;
 
 	@PostMapping(value = "/insert")
-	public ResponseStructure<Customer> saveCustomerController(@RequestBody Customer customer) {
-		return service.saveCustomerService(customer);
+	public ResponseStructure<Vendor> saveVendorController(@RequestBody Vendor vendor) {
+		return service.saveVendorService(vendor);
 	}
-
 }
