@@ -38,13 +38,11 @@ public class CustomerServiceImpli implements CustomerService {
 				structure.setMsg("Data Inserted!!!!");
 				structure.setStatus(HttpStatus.CREATED.value());
 			} else {
-				dao.saveCustomerDao(customer);
 				structure.setData(customer);
 				structure.setMsg("Please check your password!!!!");
 				structure.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
 			}
 		} else {
-			dao.saveCustomerDao(customer);
 			structure.setData(customer);
 			structure.setMsg("Please check your email!!!!");
 			structure.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
