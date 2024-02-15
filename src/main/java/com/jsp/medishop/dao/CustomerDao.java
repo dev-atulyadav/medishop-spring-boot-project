@@ -15,7 +15,7 @@ public interface CustomerDao {
 
 	public Customer getCustomerByEmailDao(String email);
 
-	public List<Customer> getCustomersDao();
+	public List<Customer> getAllCustomersDao();
 
 	public Customer updateCustomerByEmailDao(Customer customer);
 

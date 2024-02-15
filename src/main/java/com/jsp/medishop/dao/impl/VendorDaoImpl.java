@@ -34,7 +34,7 @@ class VendorDaoImpl implements VendorDao {
 	}
 
 	@Override
-	public List<Vendor> getVendorsDao() {
+	public List<Vendor> getAllVendorsDao() {
 		return vendorRepository.findAll();
 	}
 

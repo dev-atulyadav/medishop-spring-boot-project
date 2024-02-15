@@ -16,9 +16,9 @@ public interface VendorService {
 
 	public ResponseStructure<Vendor> getVendorByEmailService(String email);
 
-	public List<Vendor> getVendorsService();
+	public ResponseStructure<List<Vendor>> getAllVendorsService();
 
-	public ResponseStructure<List<Vendor>> updateVendorByEmailService(Vendor vendor);
+	public ResponseStructure<Vendor> updateVendorByEmailService(Vendor vendor);
 
 	public ResponseStructure<Vendor> deleteVendorByEmailService(String email);
 

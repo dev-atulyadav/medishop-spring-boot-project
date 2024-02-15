@@ -15,7 +15,7 @@ public interface VendorDao {
 
 	public Vendor getVendorByEmailDao(String email);
 
-	public List<Vendor> getVendorsDao();
+	public List<Vendor> getAllVendorsDao();
 
 	public Vendor updateVendorByEmailDao(Vendor vendor);
 

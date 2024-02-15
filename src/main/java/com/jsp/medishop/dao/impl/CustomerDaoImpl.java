@@ -33,7 +33,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public List<Customer> getCustomersDao() {
+	public List<Customer> getAllCustomersDao() {
 		return customerRepository.findAll();
 	}
 

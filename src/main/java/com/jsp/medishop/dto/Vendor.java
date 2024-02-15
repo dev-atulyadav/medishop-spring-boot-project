@@ -20,12 +20,14 @@ public class Vendor {
 	private String name;
 	private String email;
 	private long phone;
-	@Column(unique = true,nullable = true , length = 12)
+	@Column(unique = true, nullable = true, length = 12)
 	private long adhar;
 	private String password;
 	private String address;
 
 	@ManyToMany
 	private List<Customer> customers;
+	@ManyToMany
+	private List<Medicine> medicines;
 
 }

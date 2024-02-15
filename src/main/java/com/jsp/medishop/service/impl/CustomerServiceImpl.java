@@ -52,31 +52,77 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public ResponseStructure<Customer> getCustomerByIdService(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Customer customer = dao.getCustomerByIdDao(id);
+		if (customer != null) {
+			structure.setData(customer);
+			structure.setMsg("data found!!!");
+			structure.setStatus(HttpStatus.FOUND.value());
+		} else {
+			structure.setData(customer);
+			structure.setMsg("No record found!!!");
+			structure.setStatus(HttpStatus.NOT_FOUND.value());
+		}
+		return structure;
 	}
 
 	@Override
 	public ResponseStructure<Customer> getCustomerByEmailService(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		Customer customer = dao.getCustomerByEmailDao(email);
+		if (customer != null) {
+			structure.setData(customer);
+			structure.setMsg("data found!!!");
+			structure.setStatus(HttpStatus.FOUND.value());
+		} else {
+			structure.setData(customer);
+			structure.setMsg("No record found!!!");
+			structure.setStatus(HttpStatus.NOT_FOUND.value());
+		}
+		return structure;
 	}
 
 	@Override
-	public List<Customer> getCustomersService() {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseStructure<List<Customer>> getAllCustomersService() {
+		List<Customer> list = dao.getAllCustomersDao();
+		if (!list.isEmpty()) {
+			structure2.setData(list);
+			structure2.setMsg("data found!!!");
+			structure2.setStatus(HttpStatus.FOUND.value());
+		} else {
+			structure2.setData(list);
+			structure2.setMsg("no record found!!!");
+			structure2.setStatus(HttpStatus.NOT_FOUND.value());
+		}
+		return structure2;
 	}
 
 	@Override
-	public ResponseStructure<List<Customer>> updateCustomerByEmailService(Customer customer) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseStructure<Customer> updateCustomerByEmailService(Customer customer) {
+		Customer customer2 = dao.updateCustomerByEmailDao(customer);
+		if (customer2 != null) {
+			structure.setData(customer2);
+			structure.setMsg("data upadated!!!");
+			structure.setStatus(HttpStatus.OK.value());
+		} else {
+			structure.setData(customer2);
+			structure.setMsg("Not data found!!!");
+			structure.setStatus(HttpStatus.NOT_FOUND.value());
+		}
+		return structure;
 	}
 
 	@Override
 	public ResponseStructure<Customer> deleteCustomerByEmailService(String email) {
-		return null;
+		Customer customer = dao.deleteCustomerByEmailDao(email);
+		if (customer == null) {
+			structure.setData(customer);
+			structure.setMsg("data deleted!!!");
+			structure.setStatus(HttpStatus.OK.value());
+		} else {
+			structure.setData(customer);
+			structure.setMsg("No data found!!!");
+			structure.setStatus(HttpStatus.NOT_FOUND.value());
+		}
+		return structure;
 	}
 
 }

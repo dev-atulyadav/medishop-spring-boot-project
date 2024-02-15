@@ -17,9 +17,9 @@ public interface CustomerService {
 
 	public ResponseStructure<Customer> getCustomerByEmailService(String email);
 
-	public List<Customer> getCustomersService();
+	public ResponseStructure<List<Customer>> getAllCustomersService();
 
-	public ResponseStructure<List<Customer>> updateCustomerByEmailService(Customer customer);
+	public ResponseStructure<Customer> updateCustomerByEmailService(Customer customer);
 
 	public ResponseStructure<Customer> deleteCustomerByEmailService(String email);
 }
