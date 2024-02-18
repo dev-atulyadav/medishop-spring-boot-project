@@ -5,7 +5,7 @@ import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 /**
@@ -13,23 +13,21 @@ import lombok.Data;
  */
 @Entity
 @Data
-public class Vendor {
+public class Admin {
 
 	@Id
 	private int id;
-	private String name;
+	@Column(unique = true)
 	private String email;
-	private long phone;
-	@Column(unique = true, nullable = true, length = 12)
-	private long adhar;
+	@Column(length = 8)
 	private String password;
-	private String address;
 
-	@ManyToMany
+	@OneToMany
+	private List<Vendor> vendors;
+	@OneToMany
 	private List<Customer> customers;
-	@ManyToMany
+	@OneToMany
 	private List<Medicine> medicines;
-	@ManyToMany(mappedBy = "vendors")
+	@OneToMany
 	private List<OrderEntity> orders;
-
 }

@@ -25,8 +25,8 @@ public class Medicine {
 	private String companyName;
 	private int quantity;
 	private double price;
-	private String desc;
-
+	private String description;
+	
 	@ManyToMany(mappedBy = "medicines")
 	private List<Vendor> vendors;
 

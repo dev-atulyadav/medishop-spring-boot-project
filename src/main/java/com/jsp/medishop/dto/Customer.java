@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 /**
@@ -31,5 +32,8 @@ public class Customer {
 
 	@ManyToMany(mappedBy = "customers")
 	private List<Vendor> vendors;
+
+	@OneToMany(mappedBy = "customer")
+	private List<OrderEntity> orders;
 
 }
