@@ -29,22 +29,29 @@ public class VendorServiceImpl implements VendorService {
 
 	@Override
 	public ResponseStructure<Vendor> saveVendorService(Vendor vendor) {
-		String email = verification.verifyEmail(vendor.getEmail());
-		String password = verification.verifyPassword(vendor.getPassword());
-		if (email != null) {
-			if (password != null) {
-				dao.saveVendorDao(vendor);
-				structure.setData(vendor);
-				structure.setMsg("Data Inserted!!!");
-				structure.setStatus(HttpStatus.CREATED.value());
+		Vendor vendor2 = dao.getVendorByEmailDao(vendor.getEmail());
+		if (vendor2 == null) {
+			String email = verification.verifyEmail(vendor.getEmail());
+			String password = verification.verifyPassword(vendor.getPassword());
+			if (email != null) {
+				if (password != null) {
+					dao.saveVendorDao(vendor);
+					structure.setData(vendor);
+					structure.setMsg("Data Inserted!!!");
+					structure.setStatus(HttpStatus.CREATED.value());
+				} else {
+					structure.setData(vendor);
+					structure.setMsg("Please create a vaild password!!!");
+					structure.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
+				}
 			} else {
 				structure.setData(vendor);
-				structure.setMsg("Please create a vaild password!!!");
+				structure.setMsg("Please enter a vaild email!!!");
 				structure.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
 			}
 		} else {
 			structure.setData(vendor);
-			structure.setMsg("Please enter a vaild email!!!");
+			structure.setMsg("User already exists!!!!");
 			structure.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
 		}
 		return structure;
@@ -113,13 +120,13 @@ public class VendorServiceImpl implements VendorService {
 
 	@Override
 	public ResponseStructure<Vendor> deleteVendorByEmailService(String email) {
-		Vendor vendor = dao.deleteVendorByEmailDao(email);
-		if (vendor == null) {
-			structure.setData(vendor);
+		boolean b = dao.deleteVendorByEmailDao(email);
+		if (b) {
+			structure.setData(null);
 			structure.setMsg("Data deleted!!!");
 			structure.setStatus(HttpStatus.OK.value());
 		} else {
-			structure.setData(vendor);
+			structure.setData(null);
 			structure.setMsg("No record matched!!!");
 			structure.setStatus(HttpStatus.NOT_FOUND.value());
 		}

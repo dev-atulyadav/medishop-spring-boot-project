@@ -47,7 +47,8 @@ public class CustomerController {
 		return service.getAllCustomersService();
 	}
 
-	@PutMapping(value = "/update")
+	// not working
+	@PutMapping(value = "/updateByEmail")
 	public ResponseStructure<Customer> updateCustomerByEmailController(@RequestBody Customer customer) {
 		return service.updateCustomerByEmailService(customer);
 	}

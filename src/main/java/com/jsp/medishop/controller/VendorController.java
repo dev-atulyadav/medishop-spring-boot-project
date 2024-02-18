@@ -46,6 +46,7 @@ public class VendorController {
 		return service.getAllVendorsService();
 	}
 
+	// not working
 	@PutMapping(value = "/updateByEmail/{email}")
 	public ResponseStructure<Vendor> updateVendorByEmailController(@RequestBody Vendor vendor) {
 		return service.updateVendorByEmailService(vendor);

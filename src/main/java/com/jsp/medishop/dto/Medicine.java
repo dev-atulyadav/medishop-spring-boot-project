@@ -6,6 +6,8 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import lombok.Data;
@@ -18,6 +20,7 @@ import lombok.Data;
 public class Medicine {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	@JsonFormat(pattern = "dd-mm-yyyy")
@@ -26,7 +29,7 @@ public class Medicine {
 	private int quantity;
 	private double price;
 	private String description;
-	
+
 	@ManyToMany(mappedBy = "medicines")
 	private List<Vendor> vendors;
 

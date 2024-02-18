@@ -1,6 +1,7 @@
 package com.jsp.medishop.dao.impl;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,7 +25,13 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public Customer getCustomerByIdDao(int id) {
-		return customerRepository.findById(id).get();
+		try {
+			return customerRepository.findById(id).get();
+
+		} catch (NoSuchElementException e) {
+//			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -47,13 +54,13 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public Customer deleteCustomerByEmailDao(String email) {
+	public boolean deleteCustomerByEmailDao(String email) {
 		Customer customer = getCustomerByEmailDao(email);
 		if (customer != null) {
 			customerRepository.delete(customer);
-			return null;
+			return true;
 		}
-		return customer;
+		return false;
 	}
 
 }

@@ -19,6 +19,6 @@ public interface CustomerDao {
 
 	public Customer updateCustomerByEmailDao(Customer customer);
 
-	public Customer deleteCustomerByEmailDao(String email);
+	public boolean deleteCustomerByEmailDao(String email);
 
 }

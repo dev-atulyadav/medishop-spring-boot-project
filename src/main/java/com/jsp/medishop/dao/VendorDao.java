@@ -19,6 +19,6 @@ public interface VendorDao {
 
 	public Vendor updateVendorByEmailDao(Vendor vendor);
 
-	public Vendor deleteVendorByEmailDao(String email);
+	public boolean deleteVendorByEmailDao(String email);
 
 }

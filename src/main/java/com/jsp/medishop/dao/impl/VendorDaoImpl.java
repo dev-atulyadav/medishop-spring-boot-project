@@ -25,7 +25,11 @@ class VendorDaoImpl implements VendorDao {
 
 	@Override
 	public Vendor getVendorByIdDao(int id) {
-		return vendorRepository.findById(id).get();
+		try {
+			return vendorRepository.findById(id).get();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
@@ -48,12 +52,12 @@ class VendorDaoImpl implements VendorDao {
 	}
 
 	@Override
-	public Vendor deleteVendorByEmailDao(String email) {
+	public boolean deleteVendorByEmailDao(String email) {
 		Vendor vendor = getVendorByEmailDao(email);
 		if (vendor != null) {
 			vendorRepository.delete(vendor);
-			return null;
+			return true;
 		}
-		return vendor;
+		return false;
 	}
 }

@@ -29,22 +29,29 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public ResponseStructure<Customer> saveCustomerService(Customer customer) {
-		String email = verification.verifyEmail(customer.getEmail());
-		String password = verification.verifyPassword(customer.getPassword());
-		if (email != null) {
-			if (password != null) {
-				dao.saveCustomerDao(customer);
-				structure.setData(customer);
-				structure.setMsg("Data Inserted!!!!");
-				structure.setStatus(HttpStatus.CREATED.value());
+		Customer customer2 = dao.getCustomerByEmailDao(customer.getEmail());
+		if (customer2 == null) {
+			String email = verification.verifyEmail(customer.getEmail());
+			String password = verification.verifyPassword(customer.getPassword());
+			if (email != null) {
+				if (password != null) {
+					dao.saveCustomerDao(customer);
+					structure.setData(customer);
+					structure.setMsg("Data Inserted!!!!");
+					structure.setStatus(HttpStatus.CREATED.value());
+				} else {
+					structure.setData(customer);
+					structure.setMsg("Please check your password!!!!");
+					structure.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
+				}
 			} else {
 				structure.setData(customer);
-				structure.setMsg("Please check your password!!!!");
+				structure.setMsg("Please check your email!!!!");
 				structure.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
 			}
 		} else {
 			structure.setData(customer);
-			structure.setMsg("Please check your email!!!!");
+			structure.setMsg("User already exists!!!!");
 			structure.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
 		}
 		return structure;
@@ -112,13 +119,13 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public ResponseStructure<Customer> deleteCustomerByEmailService(String email) {
-		Customer customer = dao.deleteCustomerByEmailDao(email);
-		if (customer == null) {
-			structure.setData(customer);
+		boolean b = dao.deleteCustomerByEmailDao(email);
+		if (b) {
+			structure.setData(null);
 			structure.setMsg("data deleted!!!");
 			structure.setStatus(HttpStatus.OK.value());
 		} else {
-			structure.setData(customer);
+			structure.setData(null);
 			structure.setMsg("No data found!!!");
 			structure.setStatus(HttpStatus.NOT_FOUND.value());
 		}
