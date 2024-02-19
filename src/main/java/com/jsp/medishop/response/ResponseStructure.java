@@ -12,8 +12,8 @@ import lombok.Data;
 @Data
 public class ResponseStructure<T> {
 
-	private T data;
 	private String msg;
+	private T data;
 	private int status;
 
 }

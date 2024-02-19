@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.jsp.medishop.dao.AdminDao;
 import com.jsp.medishop.dto.Admin;
+import com.jsp.medishop.exception.InvalidUserCredentialException;
 import com.jsp.medishop.response.ResponseStructure;
 import com.jsp.medishop.service.AdminService;
 
@@ -27,15 +28,9 @@ public class AdminServiceImpl implements AdminService {
 				structure.setData(admin2);
 				structure.setMsg("Logged in successfully!!!");
 				structure.setStatus(HttpStatus.FOUND.value());
-			} else {
-				structure.setData(admin);
-				structure.setMsg("Invaild Password!!!");
-				structure.setStatus(HttpStatus.BAD_REQUEST.value());
 			}
 		} else {
-			structure.setData(admin);
-			structure.setMsg("No record found!!!");
-			structure.setStatus(HttpStatus.NOT_FOUND.value());
+			throw new InvalidUserCredentialException();
 		}
 		return structure;
 	}

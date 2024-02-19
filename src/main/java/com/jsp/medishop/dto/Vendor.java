@@ -27,6 +27,8 @@ public class Vendor {
 	private long adhar;
 	private String password;
 	private String address;
+	@Column(name = "vendor_status", nullable = true)
+	private String vendorStatus ="inactive";
 
 	@ManyToMany
 	private List<Customer> customers;
@@ -34,5 +36,5 @@ public class Vendor {
 	private List<Medicine> medicines;
 	@ManyToMany(mappedBy = "vendors")
 	private List<OrderEntity> orders;
-	
+
 }

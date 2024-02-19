@@ -27,10 +27,5 @@ public class Admin {
 
 	@OneToMany
 	private List<Vendor> vendors;
-	@OneToMany
-	private List<Customer> customers;
-	@OneToMany
-	private List<Medicine> medicines;
-	@OneToMany
-	private List<OrderEntity> orders;
+
 }
