@@ -34,6 +34,8 @@ public class AdminServiceImpl implements AdminService {
 				structure.setData(admin2);
 				structure.setMsg("Logged in successfully!!!");
 				structure.setStatus(HttpStatus.FOUND.value());
+			} else {
+				throw new InvalidUserCredentialException();
 			}
 		} else {
 			throw new InvalidUserCredentialException();

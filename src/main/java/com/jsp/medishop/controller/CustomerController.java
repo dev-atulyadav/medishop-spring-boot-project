@@ -3,9 +3,9 @@ package com.jsp.medishop.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -56,5 +56,16 @@ public class CustomerController {
 	@DeleteMapping(value = "/deleteByEmail/{email}")
 	public ResponseStructure<Customer> deleteCustomerByEmailController(@PathVariable String email) {
 		return service.deleteCustomerByEmailService(email);
+	}
+
+	@GetMapping(value = "/login/{email}/{password}")
+	public ResponseStructure<Customer> loginCustomerWithEmailController(@PathVariable String email,
+			@PathVariable String password) {
+		return service.loginCustomerWithEmailService(email, password);
+	}
+
+	@GetMapping(value = "/logout")
+	public ResponseEntity<String> logoutCustomerWithEmailController() {
+		return service.logoutCustomerWithEmailService();
 	}
 }

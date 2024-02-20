@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jsp.medishop.dao.VendorDao;
@@ -12,12 +13,16 @@ import com.jsp.medishop.response.ResponseStructure;
 import com.jsp.medishop.service.VendorService;
 import com.jsp.medishop.verification.DataVerification;
 
+import jakarta.servlet.http.HttpSession;
+
 /**
  * @author Atul
  */
 @Service
 public class VendorServiceImpl implements VendorService {
 
+	@Autowired
+	private HttpSession session;
 	@Autowired
 	private VendorDao dao;
 	@Autowired
@@ -35,7 +40,9 @@ public class VendorServiceImpl implements VendorService {
 			String password = verification.verifyPassword(vendor.getPassword());
 			if (email != null) {
 				if (password != null) {
+					session.setAttribute("vendorEmail", email);
 					dao.saveVendorDao(vendor);
+					vendor.setPassword("******");
 					structure.setData(vendor);
 					structure.setMsg("Data Inserted!!!");
 					structure.setStatus(HttpStatus.CREATED.value());
@@ -131,6 +138,39 @@ public class VendorServiceImpl implements VendorService {
 			structure.setStatus(HttpStatus.NOT_FOUND.value());
 		}
 		return structure;
+	}
+
+	@Override
+	public ResponseStructure<Vendor> loginVendorWithEmailService(String email, String password) {
+		Vendor vendor2 = dao.getVendorByEmailDao(email);
+		if (vendor2 != null) {
+			if (vendor2.getPassword().equals(password)) {
+				session.setAttribute("vendorEmail", vendor2.getEmail());
+				structure.setMsg("You logged successfully!!!");
+				structure.setStatus(HttpStatus.OK.value());
+				vendor2.setPassword("*******");
+				structure.setData(vendor2);
+			} else {
+				structure.setData(null);
+				structure.setMsg("Invalid Password!!!");
+				structure.setStatus(HttpStatus.NOT_FOUND.value());
+			}
+		} else {
+			structure.setData(null);
+			structure.setMsg("Invalid Email!!!");
+			structure.setStatus(HttpStatus.NOT_FOUND.value());
+		}
+		return structure;
+	}
+
+	@Override
+	public ResponseEntity<String> logoutVendorWithEmailService() {
+		if (session.getAttribute("vendorEmail") != null) {
+			session.invalidate();
+			return new ResponseEntity<String>("You logged out successfully!!!", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("Bad Request!!", HttpStatus.BAD_REQUEST);
+		}
 	}
 
 }

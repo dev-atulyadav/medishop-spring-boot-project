@@ -6,6 +6,8 @@ package com.jsp.medishop.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.jsp.medishop.dto.Customer;
 import com.jsp.medishop.response.ResponseStructure;
 
@@ -85,4 +87,8 @@ public interface CustomerService {
 	 * @return ResponseStructure of Customer
 	 */
 	public ResponseStructure<Customer> deleteCustomerByEmailService(String email);
+
+	public ResponseStructure<Customer> loginCustomerWithEmailService(String email,String password);
+
+	public ResponseEntity<String> logoutCustomerWithEmailService();
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jsp.medishop.dao.CustomerDao;
@@ -12,12 +13,16 @@ import com.jsp.medishop.response.ResponseStructure;
 import com.jsp.medishop.service.CustomerService;
 import com.jsp.medishop.verification.DataVerification;
 
+import jakarta.servlet.http.HttpSession;
+
 /**
  * @author Atul
  */
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
+	@Autowired
+	private HttpSession session;
 	@Autowired
 	private CustomerDao dao;
 	@Autowired
@@ -35,6 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
 			String password = verification.verifyPassword(customer.getPassword());
 			if (email != null) {
 				if (password != null) {
+					session.setAttribute("customerEmail", customer.getEmail());
 					dao.saveCustomerDao(customer);
 					structure.setData(customer);
 					structure.setMsg("Data Inserted!!!!");
@@ -130,6 +136,39 @@ public class CustomerServiceImpl implements CustomerService {
 			structure.setStatus(HttpStatus.NOT_FOUND.value());
 		}
 		return structure;
+	}
+
+	@Override
+	public ResponseStructure<Customer> loginCustomerWithEmailService(String email, String password) {
+		Customer customer = dao.getCustomerByEmailDao(email);
+		if (customer != null) {
+			if (customer.getPassword().equals(password)) {
+				session.setAttribute("customerEmail", email);
+				structure.setMsg("Logged in successfully!!!");
+				structure.setStatus(HttpStatus.OK.value());
+				customer.setPassword("*******");
+				structure.setData(customer);
+			} else {
+				structure.setData(null);
+				structure.setMsg("Invalid Password!!!");
+				structure.setStatus(HttpStatus.NOT_FOUND.value());
+			}
+		} else {
+			structure.setData(null);
+			structure.setMsg("Invalid Email!!!");
+			structure.setStatus(HttpStatus.NOT_FOUND.value());
+		}
+		return structure;
+	}
+
+	@Override
+	public ResponseEntity<String> logoutCustomerWithEmailService() {
+		if (session.getAttribute("customerEmail") != null) {
+			session.invalidate();
+			return new ResponseEntity<String>("You Logged out!!!", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("Ivalid request!!!", HttpStatus.BAD_REQUEST);
+		}
 	}
 
 }
