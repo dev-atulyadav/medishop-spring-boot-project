@@ -1,8 +1,12 @@
 package com.jsp.medishop.service;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.jsp.medishop.dto.Admin;
+import com.jsp.medishop.dto.Vendor;
 import com.jsp.medishop.response.ResponseStructure;
 
 /**
@@ -25,5 +29,9 @@ public interface AdminService {
 	public ResponseStructure<Admin> getAdminByEmailService(Admin admin);
 
 	public ResponseEntity<String> logoutAdminService();
+
+	public ResponseStructure<List<Vendor>> getAllVendorsByAdminService();
+
+	public ResponseStructure<Vendor> updateVendorStatusByVendorIdService(int id, String status);
 
 }

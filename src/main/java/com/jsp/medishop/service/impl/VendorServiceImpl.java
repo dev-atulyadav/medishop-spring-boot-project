@@ -40,11 +40,10 @@ public class VendorServiceImpl implements VendorService {
 			String password = verification.verifyPassword(vendor.getPassword());
 			if (email != null) {
 				if (password != null) {
-					session.setAttribute("vendorEmail", email);
 					dao.saveVendorDao(vendor);
 					vendor.setPassword("******");
 					structure.setData(vendor);
-					structure.setMsg("Data Inserted!!!");
+					structure.setMsg("Data Inserted you will be able to login when admin will review your status!!!");
 					structure.setStatus(HttpStatus.CREATED.value());
 				} else {
 					structure.setData(vendor);
@@ -145,11 +144,18 @@ public class VendorServiceImpl implements VendorService {
 		Vendor vendor2 = dao.getVendorByEmailDao(email);
 		if (vendor2 != null) {
 			if (vendor2.getPassword().equals(password)) {
-				session.setAttribute("vendorEmail", vendor2.getEmail());
-				structure.setMsg("You logged successfully!!!");
-				structure.setStatus(HttpStatus.OK.value());
-				vendor2.setPassword("*******");
-				structure.setData(vendor2);
+				if (vendor2.getVendorStatus().equals("active")) {
+					session.setAttribute("vendorEmail", vendor2.getEmail());
+					structure.setMsg("You logged successfully!!!");
+					structure.setStatus(HttpStatus.OK.value());
+					vendor2.setPassword("*******");
+					structure.setData(vendor2);
+				} else {
+					structure.setData(vendor2);
+					structure.setMsg(
+							"you can't login with inactive status. Please wait for admin to review your status!");
+					structure.setStatus(HttpStatus.OK.value());
+				}
 			} else {
 				structure.setData(null);
 				structure.setMsg("Invalid Password!!!");
