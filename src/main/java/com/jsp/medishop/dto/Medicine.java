@@ -1,10 +1,11 @@
 package com.jsp.medishop.dto;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,13 +25,14 @@ public class Medicine {
 	private int id;
 	private String name;
 	@JsonFormat(pattern = "dd-mm-yyyy")
-	private LocalDate expiryData;
+	private String expiryData;
 	private String companyName;
 	private int quantity;
 	private double price;
 	private String description;
 
-	@ManyToMany(mappedBy = "medicines")
+	@ManyToMany(mappedBy = "medicines",cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Vendor> vendors;
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jsp.medishop.dto.Medicine;
 import com.jsp.medishop.dto.Vendor;
 import com.jsp.medishop.response.ResponseStructure;
 import com.jsp.medishop.service.VendorService;
@@ -67,4 +68,9 @@ public class VendorController {
 	public ResponseEntity<String> logoutVendorWithEmailController() {
 		return service.logoutVendorWithEmailService();
 	}
+	@PutMapping(value = "/addMedicineWithVendor")
+	public ResponseStructure<Vendor> addMedicineWithVendorController(@RequestBody Medicine medicine) {
+		return service.addMedicineWithVendorService(medicine);
+	}
+
 }

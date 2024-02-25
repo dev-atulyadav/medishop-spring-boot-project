@@ -1,5 +1,6 @@
 package com.jsp.medishop.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.jsp.medishop.dao.MedicineDao;
 import com.jsp.medishop.dao.VendorDao;
+import com.jsp.medishop.dto.Medicine;
 import com.jsp.medishop.dto.Vendor;
 import com.jsp.medishop.response.ResponseStructure;
 import com.jsp.medishop.service.VendorService;
@@ -26,11 +29,15 @@ public class VendorServiceImpl implements VendorService {
 	@Autowired
 	private VendorDao dao;
 	@Autowired
+	private MedicineDao medicineDao;
+	@Autowired
 	private DataVerification verification;
 	@Autowired
 	private ResponseStructure<Vendor> structure;
 	@Autowired
 	private ResponseStructure<List<Vendor>> structure2;
+	@Autowired
+	private ResponseStructure<Medicine> structure3;
 
 	@Override
 	public ResponseStructure<Vendor> saveVendorService(Vendor vendor) {
@@ -177,6 +184,28 @@ public class VendorServiceImpl implements VendorService {
 		} else {
 			return new ResponseEntity<String>("Bad Request!!", HttpStatus.BAD_REQUEST);
 		}
+	}
+
+	@Override
+	public ResponseStructure<Vendor> addMedicineWithVendorService(Medicine medicine) {
+		String email = (String) session.getAttribute("vendorEmail");
+		if (email != null) {
+			Vendor vendor = dao.getVendorByEmailDao(email);
+			List<Medicine> list = vendor.getMedicines();
+			list.add(medicine);
+			vendor.setMedicines(list);
+			medicineDao.saveMedicineDao(medicine);
+			dao.saveVendorDao(vendor);
+			structure.setData(vendor);
+			structure.setMsg("medicine added");
+			structure.setStatus(HttpStatus.OK.value());
+
+		} else {
+			structure.setData(null);
+			structure.setMsg("Please login first!");
+			structure.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
+		}
+		return structure;
 	}
 
 }

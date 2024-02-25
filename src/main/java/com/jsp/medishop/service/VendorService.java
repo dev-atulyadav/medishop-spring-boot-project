@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.jsp.medishop.dto.Customer;
+import com.jsp.medishop.dto.Medicine;
 import com.jsp.medishop.dto.Vendor;
 import com.jsp.medishop.response.ResponseStructure;
 
@@ -90,5 +91,7 @@ public interface VendorService {
 	public ResponseStructure<Vendor> loginVendorWithEmailService(String email, String password);
 
 	public ResponseEntity<String> logoutVendorWithEmailService();
+
+	public ResponseStructure<Vendor> addMedicineWithVendorService(Medicine medicine);
 
 }
