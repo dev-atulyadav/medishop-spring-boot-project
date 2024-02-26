@@ -7,5 +7,6 @@ import com.jsp.medishop.dto.Admin;
  */
 public interface AdminDao {
 
-	public Admin getAdminByEmailDao(Admin admin);
+	public Admin getAdminByEmailDao(String email);
+
 }

@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 /**
@@ -39,5 +40,7 @@ public class Vendor {
 	@JsonIgnore
 	@ManyToMany(mappedBy = "vendors")
 	private List<OrderEntity> orders;
+	@ManyToOne
+	private Admin admin;
 
 }

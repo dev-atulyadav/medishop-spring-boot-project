@@ -26,9 +26,9 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 
-	@GetMapping(value = "/login")
-	public ResponseStructure<Admin> getAdminByEmailController(@RequestBody Admin admin) {
-		return service.getAdminByEmailService(admin);
+	@GetMapping(value = "/login/{email}/{password}")
+	public ResponseStructure<Admin> getAdminByEmailController(@PathVariable String email,@PathVariable String password) {
+		return service.getAdminByEmailService(email,password);
 	}
 
 	@GetMapping(value = "/logout")

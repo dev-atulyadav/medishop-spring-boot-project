@@ -26,7 +26,7 @@ public interface AdminService {
 	 * @param admin
 	 * @return ResponseStructure of Admin
 	 */
-	public ResponseStructure<Admin> getAdminByEmailService(Admin admin);
+	public ResponseStructure<Admin> getAdminByEmailService(String email, String password);
 
 	public ResponseEntity<String> logoutAdminService();
 

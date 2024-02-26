@@ -17,8 +17,9 @@ public class AdminDaoImpl implements AdminDao {
 	private AdminRepository repository;
 
 	@Override
-	public Admin getAdminByEmailDao(Admin admin) {
-		return repository.findByEmail(admin.getEmail());
+	public Admin getAdminByEmailDao(String email) {
+		return repository.findByEmail(email);
 	}
+
 
 }

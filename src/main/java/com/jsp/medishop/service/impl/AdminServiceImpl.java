@@ -39,12 +39,12 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private ResponseStructure<Vendor> structure3;
 
-	public ResponseStructure<Admin> getAdminByEmailService(Admin admin) {
-		Admin admin2 = dao.getAdminByEmailDao(admin);
-		if (admin2 != null) {
-			if (admin.getPassword().equals(admin2.getPassword())) {
-				session.setAttribute("adminEmail", admin2);
-				structure.setData(admin2);
+	public ResponseStructure<Admin> getAdminByEmailService(String email, String password) {
+		Admin admin = dao.getAdminByEmailDao(email);
+		if (admin != null) {
+			if (admin.getPassword().equals(password)) {
+				session.setAttribute("adminEmail", email);
+				structure.setData(admin);
 				structure.setMsg("Logged in successfully!!!");
 				structure.setStatus(HttpStatus.FOUND.value());
 			} else {
@@ -80,9 +80,12 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public ResponseStructure<Vendor> updateVendorStatusByVendorIdService(int id, String status) {
-		if (session.getAttribute("adminEmail") != null) {
+		String email = (String) session.getAttribute("adminEmail");
+		if (email != null) {
 			Vendor vendor = vendorDao.getVendorByIdDao(id);
 			if (vendor != null) {
+				Admin admin = dao.getAdminByEmailDao(email);
+				vendor.setAdmin(admin);
 				vendor.setVendorStatus(status);
 				vendorDao.updateVendorByEmailDao(vendor);
 				structure3.setData(vendor);
