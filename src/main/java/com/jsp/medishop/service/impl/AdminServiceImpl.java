@@ -8,8 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jsp.medishop.dao.AdminDao;
+import com.jsp.medishop.dao.MedicineDao;
 import com.jsp.medishop.dao.VendorDao;
 import com.jsp.medishop.dto.Admin;
+import com.jsp.medishop.dto.Medicine;
 import com.jsp.medishop.dto.Vendor;
 import com.jsp.medishop.exception.InvalidUserCredentialException;
 import com.jsp.medishop.response.ResponseStructure;
@@ -30,6 +32,8 @@ public class AdminServiceImpl implements AdminService {
 	private AdminDao dao;
 	@Autowired
 	private VendorDao vendorDao;
+	@Autowired
+	private MedicineDao medicineDao;
 	@Autowired
 	private VendorService vendorService;
 	@Autowired
@@ -100,6 +104,41 @@ public class AdminServiceImpl implements AdminService {
 			structure3.setData(null);
 			structure3.setMsg("Please login as admin to update status!");
 			structure3.setStatus(HttpStatus.NOT_FOUND.value());
+		}
+		return structure3;
+	}
+
+	@Override
+	public ResponseStructure<Vendor> updateMedicineStatusByVendorIdService(int vendorId, int medicineId,
+			String status) {
+		String email = (String) session.getAttribute("adminEmail");
+		if (email != null) {
+			Vendor vendor = vendorDao.getVendorByIdDao(vendorId);
+			if (vendor != null) {
+				List<Medicine> list = vendor.getMedicines();
+				if (!list.isEmpty()) {
+					for (Medicine medicine : list) {
+						if (medicine.getId() == medicineId) {
+							if (medicineDao.updateMedicineStatusByIdDao(medicineId, status) != null)
+								structure3.setData(vendor);
+							structure3.setMsg("status upaated");
+							structure3.setStatus(HttpStatus.ACCEPTED.value());
+						}
+					}
+				} else {
+					structure3.setData(vendor);
+					structure3.setMsg("not medicines found!");
+					structure3.setStatus(HttpStatus.OK.value());
+				}
+			} else {
+				structure3.setData(null);
+				structure3.setMsg("No data found!");
+				structure3.setStatus(HttpStatus.NOT_FOUND.value());
+			}
+		} else {
+			structure3.setData(null);
+			structure3.setMsg("Please login as admin first before upadting medicines!");
+			structure3.setStatus(HttpStatus.BAD_REQUEST.value());
 		}
 		return structure3;
 	}

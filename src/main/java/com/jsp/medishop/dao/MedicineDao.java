@@ -15,5 +15,7 @@ public interface MedicineDao {
 	public List<Medicine> getAllMedicinesDao();
 
 	public List<Medicine> getMedicinesByNameDao(String name);
+	
+	public Medicine updateMedicineStatusByIdDao(int id,String status);
 
 }

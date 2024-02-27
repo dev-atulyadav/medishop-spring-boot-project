@@ -27,8 +27,9 @@ public class AdminController {
 	private AdminService service;
 
 	@GetMapping(value = "/login/{email}/{password}")
-	public ResponseStructure<Admin> getAdminByEmailController(@PathVariable String email,@PathVariable String password) {
-		return service.getAdminByEmailService(email,password);
+	public ResponseStructure<Admin> getAdminByEmailController(@PathVariable String email,
+			@PathVariable String password) {
+		return service.getAdminByEmailService(email, password);
 	}
 
 	@GetMapping(value = "/logout")
@@ -45,6 +46,12 @@ public class AdminController {
 	public ResponseStructure<Vendor> updateVendorStatusByVendorIdControlller(@PathVariable int id,
 			@PathVariable String status) {
 		return service.updateVendorStatusByVendorIdService(id, status);
+	}
+
+	@PutMapping(value = "/updateMedicineStatus/{vendorId}/{medicineId}/{status}")
+	public ResponseStructure<Vendor> updateMedicineStatusByVendorIdService(@PathVariable int vendorId,
+			@PathVariable int medicineId, @PathVariable String status) {
+		return service.updateMedicineStatusByVendorIdService(vendorId, medicineId, status);
 	}
 
 }

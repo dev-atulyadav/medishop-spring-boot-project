@@ -34,4 +34,6 @@ public interface AdminService {
 
 	public ResponseStructure<Vendor> updateVendorStatusByVendorIdService(int id, String status);
 
+	public ResponseStructure<Vendor> updateMedicineStatusByVendorIdService(int vendorId, int medicineId, String status);
+
 }

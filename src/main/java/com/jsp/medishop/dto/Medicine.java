@@ -30,6 +30,7 @@ public class Medicine {
 	private int quantity;
 	private double price;
 	private String description;
+	private String status = "Not Approved";
 
 	@ManyToMany(mappedBy = "medicines",cascade = CascadeType.ALL)
 	@JsonIgnore

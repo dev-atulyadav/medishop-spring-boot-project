@@ -33,4 +33,14 @@ public class MedicineDaoImpl implements MedicineDao {
 		return repository.findByName(name);
 	}
 
+	@Override
+	public Medicine updateMedicineStatusByIdDao(int id,String status) {
+		Medicine medicine = repository.findById(id).get();
+		if(medicine!=null) {
+			medicine.setStatus(status);
+			return repository.save(medicine);
+		}
+		return null;
+	}
+
 }
