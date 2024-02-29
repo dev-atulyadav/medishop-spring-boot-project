@@ -38,8 +38,6 @@ public class Vendor {
 	@ManyToMany
 	private List<Medicine> medicines;
 	@JsonIgnore
-	@ManyToMany(mappedBy = "vendors")
-	private List<OrderEntity> orders;
 	@ManyToOne
 	private Admin admin;
 

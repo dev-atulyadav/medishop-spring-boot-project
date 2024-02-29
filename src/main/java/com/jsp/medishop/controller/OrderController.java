@@ -24,9 +24,10 @@ public class OrderController {
 	@Autowired
 	private OrderService service;
 
-	@PostMapping(value = "/insert")
-	public ResponseStructure<OrderEntity> saveOrderContoller(@RequestBody OrderEntity order) {
-		return service.saveOrderService(order);
+	@PostMapping(value = "/placeOrder/{medicineId}")
+	public ResponseStructure<OrderEntity> saveOrderContoller(@RequestBody OrderEntity order,
+			@PathVariable int medicineId) {
+		return service.saveOrderService(order, medicineId);
 	}
 
 	@GetMapping(value = "/getById/{id}")
@@ -35,7 +36,8 @@ public class OrderController {
 	}
 
 	@PatchMapping(value = "/updateStatusById/{id}/{status}")
-	public ResponseStructure<OrderEntity> updateOrderStatusByIdController(@PathVariable int id, @PathVariable String status) {
+	public ResponseStructure<OrderEntity> updateOrderStatusByIdController(@PathVariable int id,
+			@PathVariable String status) {
 		return service.updateOrderStatusByIdService(id, status);
 	}
 

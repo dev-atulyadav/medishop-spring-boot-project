@@ -1,6 +1,7 @@
 package com.jsp.medishop.dao.impl;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,13 +35,23 @@ public class MedicineDaoImpl implements MedicineDao {
 	}
 
 	@Override
-	public Medicine updateMedicineStatusByIdDao(int id,String status) {
+	public Medicine updateMedicineStatusByIdDao(int id, String status) {
 		Medicine medicine = repository.findById(id).get();
-		if(medicine!=null) {
+		if (medicine != null) {
 			medicine.setStatus(status);
 			return repository.save(medicine);
 		}
 		return null;
+	}
+
+	@Override
+	public Medicine getMedicineByIdDao(int id) {
+		try {
+
+			return repository.findById(id).get();
+		} catch (NoSuchElementException e) {
+			return null;
+		}
 	}
 
 }

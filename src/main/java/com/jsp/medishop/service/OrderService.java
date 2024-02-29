@@ -21,7 +21,7 @@ public interface OrderService {
 	 * @param order
 	 * @return ResponseStructure of OrderEntity
 	 */
-	public ResponseStructure<OrderEntity> saveOrderService(OrderEntity order);
+	public ResponseStructure<OrderEntity> saveOrderService(OrderEntity order, int medicineId);
 
 	/**
 	 * This method will call getOrderByIdDao(int id) of OrderDao and it will check
