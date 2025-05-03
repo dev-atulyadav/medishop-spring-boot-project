@@ -1,7 +1,5 @@
 package com.jsp.medishop.dto;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -11,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 /**
@@ -25,15 +24,15 @@ public class Medicine {
 	private int id;
 	private String name;
 	@JsonFormat(pattern = "dd-mm-yyyy")
-	private String expiryData;
+	private String imageUrl;
+	private String expiryDate;
 	private String companyName;
 	private int quantity;
 	private double price;
 	private String description;
 	private String status = "Not Approved";
 
-	@ManyToMany(mappedBy = "medicines",cascade = CascadeType.ALL)
-	@JsonIgnore
-	private List<Vendor> vendors;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Vendor vendor;
 
 }

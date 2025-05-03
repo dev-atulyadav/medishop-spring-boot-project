@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,6 +21,7 @@ import com.jsp.medishop.service.AdminService;
  * @author Atul
  */
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping(value = "/admin")
 public class AdminController {
 
@@ -37,21 +39,22 @@ public class AdminController {
 		return service.logoutAdminService();
 	}
 
-	@GetMapping(value = "/getAllVendor")
-	public ResponseStructure<List<Vendor>> getAllVendorsByAdminController() {
-		return service.getAllVendorsByAdminService();
+	@GetMapping(value = "/getAllVendor/{adminEmail}")
+	public ResponseStructure<List<Vendor>> getAllVendorsByAdminController(@PathVariable String adminEmail) {
+		return service.getAllVendorsByAdminService(adminEmail);
 	}
 
-	@PutMapping(value = "/updateVendorStatusByVendorId/{id}/{status}")
-	public ResponseStructure<Vendor> updateVendorStatusByVendorIdControlller(@PathVariable int id,
-			@PathVariable String status) {
-		return service.updateVendorStatusByVendorIdService(id, status);
+
+	@PutMapping(value = "/upateVendorDetails/{adminEmail}")
+	public ResponseStructure<Vendor> updateVendorDetailsByAdmin(@RequestBody Vendor vendor,
+			@PathVariable String adminEmail) {
+		return service.updateVendorDetailsByAdminService(vendor, adminEmail);
 	}
 
-	@PutMapping(value = "/updateMedicineStatus/{vendorId}/{medicineId}/{status}")
+	@PutMapping(value = "/updateMedicineStatus/{vendorId}/{medicineId}/{status}/{adminEmail}")
 	public ResponseStructure<Vendor> updateMedicineStatusByVendorIdService(@PathVariable int vendorId,
-			@PathVariable int medicineId, @PathVariable String status) {
-		return service.updateMedicineStatusByVendorIdService(vendorId, medicineId, status);
+			@PathVariable int medicineId, @PathVariable String status, @PathVariable String adminEmail) {
+		return service.updateMedicineStatusByVendorIdService(vendorId, medicineId, status,adminEmail);
 	}
 
 }

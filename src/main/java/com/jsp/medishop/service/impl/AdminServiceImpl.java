@@ -71,8 +71,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public ResponseStructure<List<Vendor>> getAllVendorsByAdminService() {
-		if (session.getAttribute("adminEmail") != null) {
+	public ResponseStructure<List<Vendor>> getAllVendorsByAdminService(String adminEmail) {
+		if (adminEmail != null) {
 			return vendorService.getAllVendorsService();
 		} else {
 			structure2.setData(null);
@@ -82,37 +82,11 @@ public class AdminServiceImpl implements AdminService {
 		return structure2;
 	}
 
-	@Override
-	public ResponseStructure<Vendor> updateVendorStatusByVendorIdService(int id, String status) {
-		String email = (String) session.getAttribute("adminEmail");
-		if (email != null) {
-			Vendor vendor = vendorDao.getVendorByIdDao(id);
-			if (vendor != null) {
-				Admin admin = dao.getAdminByEmailDao(email);
-				vendor.setAdmin(admin);
-				vendor.setVendorStatus(status);
-				vendorDao.updateVendorByEmailDao(vendor);
-				structure3.setData(vendor);
-				structure3.setMsg("status updated!");
-				structure3.setStatus(HttpStatus.OK.value());
-			} else {
-				structure3.setData(null);
-				structure3.setMsg("No record found!");
-				structure3.setStatus(HttpStatus.NOT_FOUND.value());
-			}
-		} else {
-			structure3.setData(null);
-			structure3.setMsg("Please login as admin to update status!");
-			structure3.setStatus(HttpStatus.NOT_FOUND.value());
-		}
-		return structure3;
-	}
 
 	@Override
 	public ResponseStructure<Vendor> updateMedicineStatusByVendorIdService(int vendorId, int medicineId,
-			String status) {
-		String email = (String) session.getAttribute("adminEmail");
-		if (email != null) {
+			String status,String adminEmail) {
+		if (adminEmail != null) {
 			Vendor vendor = vendorDao.getVendorByIdDao(vendorId);
 			if (vendor != null) {
 				List<Medicine> list = vendor.getMedicines();
@@ -139,6 +113,27 @@ public class AdminServiceImpl implements AdminService {
 			structure3.setData(null);
 			structure3.setMsg("Please login as admin first before upadting medicines!");
 			structure3.setStatus(HttpStatus.BAD_REQUEST.value());
+		}
+		return structure3;
+	}
+
+	@Override
+	public ResponseStructure<Vendor> updateVendorDetailsByAdminService(Vendor vendor, String adminEmail) {
+		if (dao.getAdminByEmailDao(adminEmail) != null) {
+			Vendor updatedVendor = vendorDao.updateVendorByEmailDao(vendor);
+			if (updatedVendor != null) {
+				structure3.setData(updatedVendor);
+				structure3.setMsg("Vendor updated!");
+				structure3.setStatus(HttpStatus.ACCEPTED.value());
+			} else {
+				structure3.setData(null);
+				structure3.setMsg("Vendor not found!");
+				structure3.setStatus(HttpStatus.NOT_FOUND.value());
+			}
+		} else {
+			structure3.setData(null);
+			structure3.setMsg("Admin not found!");
+			structure3.setStatus(HttpStatus.NOT_FOUND.value());
 		}
 		return structure3;
 	}

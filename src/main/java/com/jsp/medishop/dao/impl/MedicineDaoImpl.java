@@ -21,7 +21,10 @@ public class MedicineDaoImpl implements MedicineDao {
 
 	@Override
 	public Medicine saveMedicineDao(Medicine medicine) {
-		return repository.save(medicine);
+		if (medicine != null)
+			return repository.save(medicine);
+		else
+			return null;
 	}
 
 	@Override

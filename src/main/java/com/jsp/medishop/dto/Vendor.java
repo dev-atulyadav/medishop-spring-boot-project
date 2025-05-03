@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 /**
@@ -35,7 +36,7 @@ public class Vendor {
 
 	@ManyToMany
 	private List<Customer> customers;
-	@ManyToMany
+	@OneToMany
 	private List<Medicine> medicines;
 	@JsonIgnore
 	@ManyToOne

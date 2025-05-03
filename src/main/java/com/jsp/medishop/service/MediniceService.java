@@ -6,6 +6,8 @@ package com.jsp.medishop.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.jsp.medishop.dto.Medicine;
 import com.jsp.medishop.response.ResponseStructure;
 

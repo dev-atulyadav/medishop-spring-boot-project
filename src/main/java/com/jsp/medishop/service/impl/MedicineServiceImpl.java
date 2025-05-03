@@ -1,10 +1,13 @@
 package com.jsp.medishop.service.impl;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jsp.medishop.dao.MedicineDao;
 import com.jsp.medishop.dto.Medicine;
@@ -26,15 +29,19 @@ public class MedicineServiceImpl implements MediniceService {
 
 	@Override
 	public ResponseStructure<Medicine> saveMedicineService(Medicine medicine) {
-		if (dao.saveMedicineDao(medicine) != null) {
-			structure.setData(medicine);
-			structure.setMsg("Data Inserted!!!");
+
+		Medicine savedMedicine = dao.saveMedicineDao(medicine);
+
+		if (savedMedicine != null) {
+			structure.setData(savedMedicine);
+			structure.setMsg("Data Inserted with image!!!");
 			structure.setStatus(HttpStatus.OK.value());
 		} else {
 			structure.setData(medicine);
 			structure.setMsg("Please Check your data!!!");
 			structure.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
 		}
+
 		return structure;
 	}
 
@@ -42,6 +49,9 @@ public class MedicineServiceImpl implements MediniceService {
 	public ResponseStructure<List<Medicine>> getAllMedicinesService() {
 		List<Medicine> list = dao.getAllMedicinesDao();
 		if (!list.isEmpty()) {
+			for (Medicine medicine : list) {
+				medicine.getVendor().setPassword(null);
+			}
 			structure2.setData(list);
 			structure2.setMsg("Data found!!!");
 			structure2.setStatus(HttpStatus.FOUND.value());

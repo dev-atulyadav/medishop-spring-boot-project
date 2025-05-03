@@ -3,8 +3,6 @@ package com.jsp.medishop.service;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import com.jsp.medishop.dto.Admin;
 import com.jsp.medishop.dto.Vendor;
 import com.jsp.medishop.response.ResponseStructure;
@@ -30,10 +28,9 @@ public interface AdminService {
 
 	public ResponseEntity<String> logoutAdminService();
 
-	public ResponseStructure<List<Vendor>> getAllVendorsByAdminService();
+	public ResponseStructure<List<Vendor>> getAllVendorsByAdminService(String adminEmail);
 
-	public ResponseStructure<Vendor> updateVendorStatusByVendorIdService(int id, String status);
+	public ResponseStructure<Vendor> updateMedicineStatusByVendorIdService(int vendorId, int medicineId, String status, String adminEmail);
 
-	public ResponseStructure<Vendor> updateMedicineStatusByVendorIdService(int vendorId, int medicineId, String status);
-
+	public ResponseStructure<Vendor> updateVendorDetailsByAdminService(Vendor vendor, String adminEmail);
 }
