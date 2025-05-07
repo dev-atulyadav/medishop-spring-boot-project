@@ -7,7 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 /**
@@ -19,6 +19,7 @@ public class OrderEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private long orderId;
 	@Column(nullable = false)
 	private LocalDate orderDate;
@@ -31,10 +32,10 @@ public class OrderEntity {
 	private String paymentMode;
 	private int quantity;
 
-	@OneToOne
+	@ManyToOne
 	private Vendor vendor;
-	@OneToOne
+	@ManyToOne
 	private Customer customer;
-	@OneToOne
+	@ManyToOne
 	private Medicine medicine;
 }

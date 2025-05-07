@@ -4,8 +4,13 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import com.jsp.medishop.dto.Admin;
+import com.jsp.medishop.dto.Customer;
+import com.jsp.medishop.dto.Medicine;
+import com.jsp.medishop.dto.OrderEntity;
 import com.jsp.medishop.dto.Vendor;
 import com.jsp.medishop.response.ResponseStructure;
+
+import jakarta.servlet.http.HttpSession;
 
 /**
  * @author Atul
@@ -30,7 +35,14 @@ public interface AdminService {
 
 	public ResponseStructure<List<Vendor>> getAllVendorsByAdminService(String adminEmail);
 
-	public ResponseStructure<Vendor> updateMedicineStatusByVendorIdService(int vendorId, int medicineId, String status, String adminEmail);
+	public ResponseStructure<List<Customer>> getAllCustomersByAdminService(String adminEmail);
+
+	public ResponseStructure<Medicine> updateMedicineStatusByVendorIdService(int vendorId, int medicineId,
+			String status, String adminEmail);
 
 	public ResponseStructure<Vendor> updateVendorDetailsByAdminService(Vendor vendor, String adminEmail);
+
+	public ResponseStructure<Object> getAdminSessionService();
+
+	public ResponseStructure<List<OrderEntity>> getAllOrderByAdminService(String email);
 }

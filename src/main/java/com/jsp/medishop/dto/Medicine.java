@@ -1,5 +1,7 @@
 package com.jsp.medishop.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -31,8 +33,11 @@ public class Medicine {
 	private double price;
 	private String description;
 	private String status = "Not Approved";
+	private String category;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Vendor vendor;
+	@ManyToMany
+	private List<OrderEntity> entities;
 
 }

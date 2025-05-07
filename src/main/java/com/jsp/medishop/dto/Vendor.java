@@ -34,6 +34,8 @@ public class Vendor {
 	@Column(name = "vendor_status", nullable = true)
 	private String vendorStatus ="inactive";
 
+	@OneToMany
+	private List<OrderEntity> entities;
 	@ManyToMany
 	private List<Customer> customers;
 	@OneToMany

@@ -1,5 +1,7 @@
 package com.jsp.medishop.dao.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -46,6 +48,11 @@ public class OrderDaoImpl implements OrderDao {
 			}
 		}
 		return order;
+	}
+
+	@Override
+	public List<OrderEntity> getAllOrders() {
+		return repository.findAll();
 	}
 
 }

@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jsp.medishop.dto.Admin;
+import com.jsp.medishop.dto.Customer;
+import com.jsp.medishop.dto.Medicine;
+import com.jsp.medishop.dto.OrderEntity;
 import com.jsp.medishop.dto.Vendor;
 import com.jsp.medishop.response.ResponseStructure;
 import com.jsp.medishop.service.AdminService;
@@ -39,22 +42,35 @@ public class AdminController {
 		return service.logoutAdminService();
 	}
 
-	@GetMapping(value = "/getAllVendor/{adminEmail}")
+	@GetMapping(value = "/getAllOrders/{adminEmail}")
+	public ResponseStructure<List<OrderEntity>> getAllOrdersByAdminController(@PathVariable String adminEmail) {
+		return service.getAllOrderByAdminService(adminEmail);
+	}
+
+	@GetMapping(value = "/getAllVendors/{adminEmail}")
 	public ResponseStructure<List<Vendor>> getAllVendorsByAdminController(@PathVariable String adminEmail) {
 		return service.getAllVendorsByAdminService(adminEmail);
 	}
-
+	@GetMapping(value = "/getAllCustomers/{adminEmail}")
+	public ResponseStructure<List<Customer>> getAllCustomersByAdminController(@PathVariable String adminEmail) {
+		return service.getAllCustomersByAdminService(adminEmail);
+	}
 
 	@PutMapping(value = "/upateVendorDetails/{adminEmail}")
-	public ResponseStructure<Vendor> updateVendorDetailsByAdmin(@RequestBody Vendor vendor,
+	public ResponseStructure<Vendor> updateVendorDetailsByAdminController(@RequestBody Vendor vendor,
 			@PathVariable String adminEmail) {
 		return service.updateVendorDetailsByAdminService(vendor, adminEmail);
 	}
 
 	@PutMapping(value = "/updateMedicineStatus/{vendorId}/{medicineId}/{status}/{adminEmail}")
-	public ResponseStructure<Vendor> updateMedicineStatusByVendorIdService(@PathVariable int vendorId,
+	public ResponseStructure<Medicine> updateMedicineStatusByVendorIdController(@PathVariable int vendorId,
 			@PathVariable int medicineId, @PathVariable String status, @PathVariable String adminEmail) {
-		return service.updateMedicineStatusByVendorIdService(vendorId, medicineId, status,adminEmail);
+		return service.updateMedicineStatusByVendorIdService(vendorId, medicineId, status, adminEmail);
+	}
+
+	@GetMapping(value = "/getAdminSession")
+	public ResponseStructure<Object> getAdminSessionServiceController() {
+		return service.getAdminSessionService();
 	}
 
 }

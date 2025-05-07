@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jsp.medishop.dao.MedicineDao;
+import com.jsp.medishop.dao.VendorDao;
 import com.jsp.medishop.dto.Medicine;
+import com.jsp.medishop.dto.Vendor;
 import com.jsp.medishop.response.ResponseStructure;
 import com.jsp.medishop.service.MediniceService;
 
@@ -23,13 +25,22 @@ public class MedicineServiceImpl implements MediniceService {
 	@Autowired
 	private MedicineDao dao;
 	@Autowired
+	private VendorDao vendorDao;
+	@Autowired
 	private ResponseStructure<Medicine> structure;
 	@Autowired
 	private ResponseStructure<List<Medicine>> structure2;
 
 	@Override
-	public ResponseStructure<Medicine> saveMedicineService(Medicine medicine) {
-
+	public ResponseStructure<Medicine> saveMedicineService(Medicine medicine, int vendorId) {
+		Vendor vendor = vendorDao.getVendorByIdDao(vendorId);
+		if (vendor == null) {
+			structure.setData(medicine);
+			structure.setMsg("Vendor not found!!!");
+			structure.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
+			return structure;
+		}
+		medicine.setVendor(vendor);
 		Medicine savedMedicine = dao.saveMedicineDao(medicine);
 
 		if (savedMedicine != null) {

@@ -21,7 +21,7 @@ public interface MediniceService {
 	 * @param medicine
 	 * @return ResponseStructure of Medicine
 	 */
-	public ResponseStructure<Medicine> saveMedicineService(Medicine medicine);
+	public ResponseStructure<Medicine> saveMedicineService(Medicine medicine, int vendorId);
 
 	/**
 	 * This will method will call getAllMedicinesDao() of MedicineDao and it will

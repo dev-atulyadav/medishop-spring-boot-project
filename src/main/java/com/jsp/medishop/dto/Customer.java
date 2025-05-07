@@ -35,5 +35,7 @@ public class Customer {
 
 	@ManyToMany(mappedBy = "customers")
 	private List<Vendor> vendors;
+	@OneToMany
+	private List<OrderEntity> entities;
 
 }

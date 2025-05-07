@@ -1,5 +1,7 @@
 package com.jsp.medishop.dao;
 
+import java.util.List;
+
 /**
  * @author Atul
  */
@@ -15,4 +17,6 @@ public interface OrderDao {
 	public OrderEntity updateOrderStatusByIdDao(int id, String status);
 
 	public OrderEntity deleteOrderByIdDao(int id);
+	
+	public List<OrderEntity> getAllOrders();
 }

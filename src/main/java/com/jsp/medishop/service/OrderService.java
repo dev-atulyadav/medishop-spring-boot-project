@@ -1,5 +1,7 @@
 package com.jsp.medishop.service;
 
+import java.util.List;
+
 /**
  * @author Atul
  */
@@ -21,7 +23,7 @@ public interface OrderService {
 	 * @param order
 	 * @return ResponseStructure of OrderEntity
 	 */
-	public ResponseStructure<OrderEntity> saveOrderService(OrderEntity order, int medicineId);
+	public ResponseStructure<OrderEntity> saveOrderService(OrderEntity order, int medicineId, int customerId);
 
 	/**
 	 * This method will call getOrderByIdDao(int id) of OrderDao and it will check
@@ -68,4 +70,8 @@ public interface OrderService {
 	 * @return ResponseStructure of OrderEntity
 	 */
 	public ResponseStructure<OrderEntity> deleteOrderByIdService(int id);
+	
+	public ResponseStructure<List<OrderEntity>> getOrdersByVendorIdService(int vendorId);
+	
+	public ResponseStructure<List<OrderEntity>> getOrdersByCustomerIdService(int customerId);
 }

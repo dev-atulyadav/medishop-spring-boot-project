@@ -30,9 +30,9 @@ public class MedicineController {
 	@Autowired
 	private MediniceService service;
 
-	@PostMapping(value = "/insert")
-	public ResponseStructure<Medicine> saveMedicineController(@RequestBody Medicine medicine) {
-		return service.saveMedicineService(medicine);
+	@PostMapping(value = "/insert/{vendorId}")
+	public ResponseStructure<Medicine> saveMedicineController(@RequestBody Medicine medicine, @PathVariable int vendorId) {
+		return service.saveMedicineService(medicine, vendorId);
 	}
 
 	@GetMapping(value = "/getAllRecords")
